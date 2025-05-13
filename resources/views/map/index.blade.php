@@ -9,9 +9,9 @@
         <div class="map-controls mb-4">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <button class="btn btn-success">
+                    <a class="btn btn-success" href="{{ route('map.load', $museum) }}">
                         <i class="bi bi-download"></i> Скачать карту
-                    </button>
+                    </a>
                     {{-- place other buttons here --}}
                 </div>
             </div>
@@ -78,33 +78,28 @@
 
     @push('scripts')
         <script>
-            const SCALE_MUL = 2.3;
-            let scale = 1,
-                xOffset = 0,
-                yOffset = 0,
-                clicked = false,
-                doc = document.getElementById("museumMap");
+            const SCALE = 2.3;
+            const museumMapEl = document.getElementById("museumMap"),
+                elemRect = museumMapEl.getBoundingClientRect();
 
-            function setTransform() {
+            let clicked = false;
+
+            function setTransform(xOffset, yOffset) {
                 if (clicked) {
-                    doc.style.transform = "translate(" + xOffset + "px, " + yOffset + "px) scale(" + scale + ")";
+                    museumMapEl.style.transform = `translate(${xOffset}px, ${yOffset}px) scale(${SCALE})`;
                 } else {
-                    doc.style.transform = "scale(1) translate(0px, 0px)";
+                    museumMapEl.style.transform = "scale(1) translate(0px, 0px)";
                 }
             }
 
-            doc.onclick = function (e) {
+            museumMapEl.onclick = function (e) {
                 e.preventDefault();
-                const xs = (e.clientX - xOffset) / scale;
-                const ys = (e.clientY - yOffset) / scale;
 
-                clicked ? (scale /= SCALE_MUL) : (scale *= SCALE_MUL);
+                const clickedX = e.clientX - elemRect.x + window.scrollX, clickedY = e.clientY - elemRect.y + window.scrollY;
+                const xs = clickedX, ys = clickedY;
+
                 clicked = !clicked;
-
-                xOffset = e.clientX - xs * scale;
-                yOffset = e.clientY - ys * scale;
-
-                setTransform();
+                setTransform(clickedX - xs * SCALE, clickedY - ys * SCALE);
             }
         </script>
     @endpush

@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('map')
     ->as('map.')
     ->controller(\App\Http\Controllers\MapController::class)->group(function () {
-    Route::get('/', 'index')->name('index'); // todo mb just resource
+    Route::get('/', 'index')->name('index');
+    Route::get('/load/{museum}', 'load')->name('load');
 });
 Route::prefix('exhibit_group')
     ->as('exhibit_group.')
