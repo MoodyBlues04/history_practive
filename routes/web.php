@@ -13,6 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::prefix('map')
+    ->as('map.')
+    ->controller(\App\Http\Controllers\MapController::class)->group(function () {
+    Route::get('/', 'index')->name('index'); // todo mb just resource
 });
+Route::prefix('exhibit_group')
+    ->as('exhibit_group.')
+    ->controller(\App\Http\Controllers\ExhibitGroupController::class)->group(function () {
+    Route::get('/{exhibitGroup}', 'show')->name('show'); // todo mb just resource
+});
+
+Route::view('/test', 'test')->name('test');
+Route::view('/', 'main')->name('main');

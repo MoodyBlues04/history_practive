@@ -18,7 +18,7 @@ class Photo extends Model
 {
     use HasFactory;
 
-    private const PUBLIC_PREFIX = 'app/public';
+    private const PUBLIC_PREFIX = 'public';
     private const STORAGE_PREFIX = 'storage';
 
     protected $fillable = [
@@ -35,7 +35,6 @@ class Photo extends Model
 
     public function getPublicUrl(): string
     {
-        // todo incorrect (written for another path prefix
         return str_replace(self::PUBLIC_PREFIX, self::STORAGE_PREFIX, asset($this->path));
     }
 
