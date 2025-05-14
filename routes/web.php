@@ -26,6 +26,11 @@ Route::prefix('exhibit_group')
     ->controller(\App\Http\Controllers\ExhibitGroupController::class)->group(function () {
     Route::get('/{exhibitGroup}', 'show')->name('show'); // todo mb just resource
 });
+Route::prefix('exhibit')
+    ->as('exhibit.')
+    ->controller(\App\Http\Controllers\ExhibitController::class)->group(function () {
+    Route::get('/{exhibit}', 'show')->name('show');
+});
 
 Route::view('/test', 'test')->name('test');
 Route::view('/', 'main')->name('main');
