@@ -25,12 +25,17 @@ Route::prefix('exhibit_group')
     ->as('exhibit_group.')
     ->controller(\App\Http\Controllers\ExhibitGroupController::class)->group(function () {
     Route::get('/{exhibitGroup}', 'show')->name('show'); // todo mb just resource
+    Route::get('/', 'index')->name('index');
 });
 Route::prefix('exhibit')
     ->as('exhibit.')
     ->controller(\App\Http\Controllers\ExhibitController::class)->group(function () {
     Route::get('/{exhibit}', 'show')->name('show');
+    Route::get('/', 'index')->name('index');
 });
 
 Route::view('/test', 'test')->name('test');
-Route::view('/', 'main')->name('main');
+Route::get('/', function () {
+    $museum = (new \App\Repositories\MuseumRepository())->getOpticsMuseum();
+    return view('main', compact('museum'));
+})->name('main');

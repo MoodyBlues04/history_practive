@@ -1,117 +1,116 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
-
-    <!-- Fonts -->
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     @stack('styles')
 
-    <!-- Favicon -->
-    <link rel="icon" href="{{ secure_asset('favicon.ico') }}" type="image/x-icon">
+    <style>
+        .hero-section {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+            url('https://source.unsplash.com/random/1920x1080/?museum') center/cover;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .museum-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .exhibition-card {
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .exhibition-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .exhibition-image {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        :root {
+            --bs-primary: #6c757d;
+            --bs-secondary: #2c3e50;
+        }
+    </style>
 </head>
 <body class="antialiased">
-<div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ __('Музей оптики ИТМО') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="{{route('main')}}">Музей оптики ИТМО</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs('map.index')) active @endif" href="{{ route('map.index') }}">
+                        План музея
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs('exhibit_group.index')) active @endif" href="{{ route('exhibit_group.index') }}">
+                        Инсталляции
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link @if(request()->routeIs('exhibit.index')) active @endif" href="{{ route('exhibit.index') }}">
+                        Экспонаты
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('map.index')) active @endif" href="{{ route('map.index') }}">
-                            План музея
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('map.index')) active @endif" href="{{ route('map.index') }}">
-                            Маршруты экскурсий(?)
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link @if(request()->routeIs('map.index')) active @endif" href="{{ route('map.index') }}">
-                            Тест по материалу(?)
-                        </a>
-                    </li>
-                </ul>
+<main class="py-4">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Login</a>
-                            </li>
-                        @endif
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @yield('content')
+</main>
 
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">Register</a>
-                            </li>
-                        @endif
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="mb-0">&copy; 2025 Музей Оптики ИТМО (никакого отношения к проекту не имеет). никакие права не защищены</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                <a href="#" class="text-white text-decoration-none">Contact Us</a>
             </div>
         </div>
-    </nav>
+    </div>
+</footer>
 
-    <main class="py-4">
-        <div class="container">
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
-
-            @if($errors->any())
-                <div class="alert alert-danger">
-                    <ul class="mb-0">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            @yield('content')
-        </div>
-    </main>
-</div>
-
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @stack('scripts')

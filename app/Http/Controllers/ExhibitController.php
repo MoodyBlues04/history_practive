@@ -13,6 +13,11 @@ class ExhibitController extends Controller
     {
     }
 
+    public function index()
+    {
+        dd('not yet');
+    }
+
     public function show(Exhibit $exhibit): View
     {
         return view('exhibit.show', compact('exhibit'));

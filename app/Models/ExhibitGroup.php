@@ -79,4 +79,9 @@ class ExhibitGroup extends Model
     {
         return $this->map_coordinates[1];
     }
+
+    public function getIconUrl(): string
+    {
+        return $this->photos->first()->getPublicUrl(); // todo default
+    }
 }
