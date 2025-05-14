@@ -13,6 +13,8 @@ class MuseumRepository extends Repository
 
     public function getOpticsMuseum(): ?Museum
     {
-        return $this->query->first();
+        return $this->query->with(['exhibitGroups' => function ($query) {
+            $query->orderBy('number');
+        }])->first();
     }
 }

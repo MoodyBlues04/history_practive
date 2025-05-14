@@ -29,35 +29,24 @@
                          class="img-fluid"
                          style="cursor: pointer">
 
-{{--                    todo: from model --}}
-                    <button class="hotspot" style="top: 30%; left: 25%;" data-number="5" data-info="Ancient Vase Collection">
-                        <span>5</span>
-                    </button>
-{{--                    todo: make it change position if go out the margin--}}
-                    <div class="info-popup" id="info_popup_5" style="top: 30%; left: 25%;">
-                        <div class="popup-header">
-                            <h3>Exhibit #<span id="popup_number_5">5</span></h3>
-                            <button class="custom-close-btn">&times;</button>
+                    <?php /** @var \App\Models\ExhibitGroup $exhibitGroup */ ?>
+                    @foreach($museum->exhibitGroups as $exhibitGroup)
+                        <button class="hotspot" style="top: {{$exhibitGroup->getMapTop()}}%; left: {{$exhibitGroup->getMapLeft()}}%;"
+                                data-number="{{$exhibitGroup->number}}" data-info="Ancient Vase Collection">
+                            <span>{{$exhibitGroup->number}}</span>
+                        </button>
+                        <div class="info-popup" id="info_popup_{{$exhibitGroup->number}}"
+                             style="top: {{$exhibitGroup->getMapTop()}}%; left: {{$exhibitGroup->getMapLeft()}}%;">
+                            <div class="popup-header">
+                                <h5><span>{{$exhibitGroup->number}}</span>. {{$exhibitGroup->name}}</h5>
+                                <button class="custom-close-btn">&times;</button>
+                            </div>
+                            <div class="popup-body">
+                                <p>{{$exhibitGroup->short_description}}</p>
+                                <a href="{{ route('exhibit_group.show', $exhibitGroup) }}">Подробнее</a>
+                            </div>
                         </div>
-                        <div class="popup-body">
-                            <p id="popup_info_5">Sample exhibit information</p>
-                        </div>
-                    </div>
-
-{{--                    todo property: number of exhibition group --}}
-                    <button class="hotspot" style="top: 45%; left: 90%;" data-number="12" data-info="Renaissance Paintings">
-                        <span>12</span>
-                    </button>
-                    <div class="info-popup" id="info_popup_12" style="top: 45%; left: 90%;">
-                        <div class="popup-header align-items-center">
-                            <h3>Exhibit #<span id="popup_number_12">12</span></h3>
-                            <button class="custom-close-btn">&times;</button>
-                        </div>
-                        <div class="popup-body">
-{{--                            todo just search by class inside the block--}}
-                            <p id="popup_info_12">Other information</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -67,17 +56,15 @@
             <?php /** @var \App\Models\ExhibitGroup $exhibitGroup */ ?>
             @foreach($museum->exhibitGroups as $exhibitGroup)
                 <div class="col">
-    {{--                        todo instead of link just highlight pointer to exhibit on scheme --}}
                     <a href="{{ route('exhibit_group.show', $exhibitGroup) }}" style="text-decoration: none">
                         <div class="card h-150">
-    {{--                        todo check if exisis or default img --}}
                             <img src="{{ $exhibitGroup->photos->first()->getPublicUrl() }}"
                                  class="card-img-top"
                                  alt="{{ $exhibitGroup->name }}"
                                  style="height: 200px; object-fit: cover">
 
                             <div class="card-body">
-                                <h5 class="card-title">{{ $exhibitGroup->name }}</h5>
+                                <h5 class="card-title">{{$exhibitGroup->number}}. {{ $exhibitGroup->name }}</h5>
                                 <p class="card-text text-muted">{{ $exhibitGroup->description }}</p>
                             </div>
                         </div>
@@ -168,7 +155,7 @@
             }
 
             museumMapEl.onclick = function (e) {
-                e.preventDefault();
+                // e.preventDefault();
                 if (isPopUpOpened) {
                     return;
                 }
@@ -192,11 +179,7 @@
                     isPopUpOpened = true;
 
                     const exhibitIndex = e.currentTarget.dataset.number;
-                    const exhibitInfo = e.currentTarget.dataset.info;
                     const popup = document.getElementById(`info_popup_${exhibitIndex}`);
-
-                    document.getElementById(`popup_number_${exhibitIndex}`).textContent = exhibitIndex;
-                    document.getElementById(`popup_info_${exhibitIndex}`).textContent = exhibitInfo;
                     popup.style.display = 'block';
 
                     fixMargin(popup);

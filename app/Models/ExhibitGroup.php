@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Casts\CoordinatesCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,8 +12,9 @@ use Ramsey\Collection\Collection;
 
 /**
  * @property int $id
+ * @property int $number
  * @property string $name
- * @property string $map_coordinates
+ * @property float[] $map_coordinates
  * @property string $short_description
  * @property string $description
  * @property int $museum_id
@@ -33,9 +35,14 @@ class ExhibitGroup extends Model
 
     protected $fillable = [
         'name',
+        'number',
         'map_coordinates',
         'short_description',
         'description',
+    ];
+
+    protected $casts = [
+        'map_coordinates' => CoordinatesCast::class,
     ];
 
     public function museum(): BelongsTo
@@ -61,5 +68,15 @@ class ExhibitGroup extends Model
     public function photos(): BelongsToMany
     {
         return $this->belongsToMany(Photo::class, 'exhibit_group_photo_pivot');
+    }
+
+    public function getMapTop(): float
+    {
+        return $this->map_coordinates[0];
+    }
+
+    public function getMapLeft(): float
+    {
+        return $this->map_coordinates[1];
     }
 }

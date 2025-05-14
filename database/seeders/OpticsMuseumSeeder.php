@@ -60,10 +60,11 @@ class OpticsMuseumSeeder extends Seeder
         $exhibitGroupsToSeed = [
             [
                 'name' => 'Голограммы у входа', // todo пока unique - по ним prev и next
-                'map_coordinates' => '1.0,1.0', // todo find out cool format & logic
+                'number' => 1,
+                'map_coordinates' => [10, 30], // percentage from top & left on map
                 'short_description' => 'ряд из голограмм у входа, крутые',
                 'description' => 'ряд из голограмм у входа, крутые. А это их длинное описание',
-                'next_group_name' => 'Голограммы у входа дубликат для теста', // todo
+                'next_group_name' => 'Голограммы у входа дубликат для теста',
                 'previous_group_name' => 'Голограммы у входа дубликат для теста',
                 'photos' => [
                     'gologramms_near_entry.jpg'
@@ -82,7 +83,8 @@ class OpticsMuseumSeeder extends Seeder
             ],
             [
                 'name' => 'Голограммы у входа дубликат для теста',
-                'map_coordinates' => '1.0,1.0',
+                'number' => 2,
+                'map_coordinates' => [40, 50],
                 'short_description' => 'ряд из голограмм у входа, крутые',
                 'description' => 'ряд из голограмм у входа, крутые. А это их длинное описание',
                 'next_group_name' => 'Голограммы у входа',
@@ -109,14 +111,14 @@ class OpticsMuseumSeeder extends Seeder
         foreach ($exhibitGroupsToSeed as $exhibitGroupData) {
             ExhibitGroup::query()->where('name', $exhibitGroupData['name'])->delete();
 
-            $dataToCreate = collect($exhibitGroupData)->only(['name', 'map_coordinates', 'short_description', 'description'])->all();
+            $dataToCreate = collect($exhibitGroupData)->only(['name', 'map_coordinates', 'short_description', 'description', 'number'])->all();
             /** @var ExhibitGroup $exhibitGroup */
             $exhibitGroup = $museum->exhibitGroups()->create($dataToCreate);
             $this->makePhotos($exhibitGroup, $exhibitGroupData['photos'], self::EXHIBIT_GROUP_PHOTOS_DIR);
 
             foreach ($exhibitGroupData['exhibits'] as $exhibitData) {
                 Exhibit::query()->where('name', $exhibitData['name'])->delete();
-                $dataToCreate = collect($exhibitData)->only(['name', 'short_description', 'description'])->all();
+                $dataToCreate = collect($exhibitData)->only(['name', 'short_description', 'description', 'number'])->all();
                 /** @var Exhibit $exhibit */
                 $exhibit = $exhibitGroup->exhibits()->create($dataToCreate);
                 $this->makePhotos($exhibit, $exhibitData['photos'], self::EXHIBIT_PHOTOS_DIR);
