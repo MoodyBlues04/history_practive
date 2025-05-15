@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Casts\CoordinatesCast;
+use App\Models\Traits\HasPhotos;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,7 +32,7 @@ use Ramsey\Collection\Collection;
  */
 class ExhibitGroup extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPhotos;
 
     protected $fillable = [
         'name',
@@ -78,10 +79,5 @@ class ExhibitGroup extends Model
     public function getMapLeft(): float
     {
         return $this->map_coordinates[1];
-    }
-
-    public function getIconUrl(): string
-    {
-        return $this->photos->first()->getPublicUrl(); // todo default
     }
 }

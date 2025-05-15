@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasPhotos;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Exhibit extends Model
 {
-    use HasFactory;
+    use HasFactory, HasPhotos;
 
     protected $fillable = [
         'name',

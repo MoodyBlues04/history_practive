@@ -67,7 +67,8 @@ class OpticsMuseumSeeder extends Seeder
                 'next_group_name' => 'Голограммы у входа дубликат для теста',
                 'previous_group_name' => 'Голограммы у входа дубликат для теста',
                 'photos' => [
-                    'gologramms_near_entry.jpg'
+                    'gologramms_near_entry.jpg',
+                    'test_1.jpg',
                 ],
 
                 'exhibits' => [
