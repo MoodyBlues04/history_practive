@@ -13,20 +13,6 @@
     @stack('styles')
 
     <style>
-        .hero-section {
-            height: 70vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-            url('https://source.unsplash.com/random/1920x1080/?museum') center/cover;
-            position: relative;
-            margin-bottom: 3rem;
-        }
-
-        .museum-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
         .exhibition-card {
             transition: transform 0.3s ease;
             height: 100%;

@@ -47,3 +47,21 @@
         </section>
     </div>
 @endsection
+
+@push('styles')
+    <style>
+        .hero-section {
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+            url('https://d3mvlb3hz2g78.cloudfront.net/wp-content/uploads/2014/10/thumb_720_450_dreamstime_xl_12297924-Custom.jpg') center/cover;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .museum-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+    </style>
+@endpush
