@@ -9,7 +9,7 @@
     <div class="hero-section d-flex align-items-center justify-content-center">
         <div class="text-center text-white">
             <h1 class="museum-title mb-4">Музей оптики ИТМО</h1>
-            <p class="lead fs-4">Discover Centuries of Human Achievement</p>
+{{--            <p class="lead fs-4">Discover Centuries of Human Achievement</p>--}}
         </div>
     </div>
 
