@@ -32,22 +32,28 @@
                         <img src="{{$museum->map->getPublicUrl()}}"
                              alt="Карта музея"
                              class="img-fluid"
-                             style="cursor: pointer">
+                             id="map-img"
+                             title="Нажмите, чтобы изменить масштаб"
+                             style="cursor: zoom-in">
 
                         <?php /** @var \App\Models\ExhibitGroup $exhibitGroup */ ?>
                         @foreach($museum->exhibitGroups as $exhibitGroup)
                             <button class="hotspot" style="top: {{$exhibitGroup->getMapTop()}}%; left: {{$exhibitGroup->getMapLeft()}}%;"
-                                    data-number="{{$exhibitGroup->number}}" data-info="Ancient Vase Collection">
+                                    data-number="{{$exhibitGroup->number}}">
                                 <span>{{$exhibitGroup->number}}</span>
                             </button>
                             <div class="info-popup" id="info_popup_{{$exhibitGroup->number}}"
                                  style="top: {{$exhibitGroup->getMapTop()}}%; left: {{$exhibitGroup->getMapLeft()}}%;">
-                                <div class="popup-header">
+                                <div class="popup-photo-container" style="margin: -20px">
+                                    <img src="{{ $exhibitGroup->getIconUrl() }}"
+                                         alt="{{$exhibitGroup->name}}"
+                                         class="popup-photo">
+                                </div>
+                                <div class="popup-header" style="margin-top: 25px">
                                     <h5><span>{{$exhibitGroup->number}}</span>. {{$exhibitGroup->name}}</h5>
                                     <button class="custom-close-btn">&times;</button>
                                 </div>
                                 <div class="popup-body">
-                                    <p>{{$exhibitGroup->short_description}}</p>
                                     <a href="{{ route('exhibit_group.show', $exhibitGroup) }}">Подробнее</a>
                                 </div>
                             </div>
@@ -67,7 +73,7 @@
                                 <img src="{{$exhibitGroup->getIconUrl()}}" class="card-img-top exhibition-image"
                                      alt="{{$exhibitGroup->name}}">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{$exhibitGroup->name}}</h5>
+                                    <h5 class="card-title">#{{$exhibitGroup->number}} {{$exhibitGroup->name}}</h5>
                                     <p class="card-text">{{$exhibitGroup->short_description}}</p>
                                     <a href="{{ route('exhibit_group.show', $exhibitGroup) }}" class="btn btn-primary">Подробнее</a>
                                 </div>
@@ -105,7 +111,6 @@
                     border-radius: 50%;
                     background: #2c3e50;
                     color: white;
-                    cursor: pointer;
                     transform: translate(-50%, -50%);
                     transition: all 0.3s ease;
                 }
@@ -132,6 +137,19 @@
                     justify-content: space-between;
                     align-items: center;
                     margin-bottom: 15px;
+                }
+
+                .popup-photo-container {
+                    border-radius: 8px 8px 0 0;
+                    -webkit-border-radius: 8px 8px 0 0;
+                    height: 160px;
+                    overflow: hidden;
+                }
+
+                .popup-photo {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
                 }
 
                 .custom-close-btn {
@@ -170,6 +188,9 @@
                         isPopUpRecentlyClosed = false;
                         return;
                     }
+
+                    const mapEl = document.getElementById("map-img");
+                    mapEl.style.cursor = clicked ? 'zoom-in' : 'zoom-out';
 
                     const clickedX = e.clientX - elemRect.x + window.scrollX, clickedY = e.clientY - elemRect.y + window.scrollY;
                     const xs = clickedX, ys = clickedY;

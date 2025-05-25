@@ -20,7 +20,7 @@
                             <img src="{{$exhibitGroup->getIconUrl()}}" class="card-img-top exhibition-image"
                                  alt="{{$exhibitGroup->name}}">
                             <div class="card-body">
-                                <h5 class="card-title">{{$exhibitGroup->name}}</h5>
+                                <h5 class="card-title">#{{$exhibitGroup->number}} {{$exhibitGroup->name}}</h5>
                                 <p class="card-text">{{$exhibitGroup->short_description}}</p>
                                 <a href="{{ route('exhibit_group.show', $exhibitGroup) }}" class="btn btn-primary">Подробнее</a>
                             </div>
