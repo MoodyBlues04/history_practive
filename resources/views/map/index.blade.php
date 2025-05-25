@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \App\Models\Museum $museum
+ * @var \App\Models\ExhibitGroup[] $exhibitGroups
+ * @var ?string $searched
  */
 ?>
 @extends('template')
@@ -28,8 +30,9 @@
                          style="cursor: zoom-in">
 
                     <?php /** @var \App\Models\ExhibitGroup $exhibitGroup */ ?>
-                    @foreach($museum->exhibitGroups as $exhibitGroup)
-                        <button class="hotspot" style="top: {{$exhibitGroup->getMapTop()}}%; left: {{$exhibitGroup->getMapLeft()}}%;"
+                    @foreach($exhibitGroups as $exhibitGroup)
+                        <button class="hotspot"
+                                style="top: {{$exhibitGroup->getMapTop()}}%; left: {{$exhibitGroup->getMapLeft()}}%;"
                                 data-number="{{$exhibitGroup->number}}"
                                 title="{{$exhibitGroup->name}}">
                             <span>{{$exhibitGroup->number}}</span>
@@ -53,51 +56,81 @@
                 </div>
             </div>
 
-            <h2 class="text-center mb-5">Инсталляции</h2>
+            <h2 class="text-center mb-5" id="exhibits-header">Инсталляции</h2>
 
             <div class="row justify-content-center mb-4">
                 <div class="col-md-10">
                     <div class="input-group">
-                        <input type="text"
+                        <input id="search-input"
+                               type="text"
                                class="form-control"
                                placeholder="Поиск по названию или номеру"
                                aria-label="Поиск экспонатов">
-                        <button class="btn btn-primary" type="button">
+                        <button id="search-input-btn" class="btn btn-primary" type="button" title="Поиск">
                             <i class="bi bi-search"></i>
                         </button>
+                        @if(!empty($searched))
+                            <button class="btn btn-secondary clear-search-input-btn" type="button"
+                                    title="Сбросить поиск">
+                                <i class="bi bi-x-circle"></i>
+                            </button>
+                        @endif
                     </div>
                 </div>
             </div>
 
             <section id="exhibitions" class="mb-5">
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" style="margin-top: 30px">
-                    @foreach($museum->exhibitGroups as $exhibitGroup)
-                        <div class="col">
-                            <div class="card exhibition-card h-100 shadow-sm">
-                                <img src="{{$exhibitGroup->getIconUrl()}}"
-                                     class="card-img-top exhibition-image"
-                                     alt="{{$exhibitGroup->name}}">
-                                <div class="card-body">
-                                    <h5 class="card-title">#{{$exhibitGroup->number}} {{$exhibitGroup->name}}</h5>
-                                    <p class="card-text">{{$exhibitGroup->short_description}}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="{{ route('exhibit_group.show', $exhibitGroup) }}"
-                                           class="btn btn-primary btn-sm">Подробнее</a>
-                                        <a href="#museumMap"
-                                           class="text-decoration-none map-pin-icon"
-                                           data-exhibit-number="{{$exhibitGroup->number}}"
-                                           title="Показать на схеме">
-                                            Показать<i class="bi bi-geo-alt-fill text-danger fs-5"></i>
-                                        </a>
+                @if (!empty($exhibitGroups))
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" style="margin-top: 30px">
+                        @foreach($exhibitGroups as $exhibitGroup)
+                            <div class="col">
+                                <div class="card exhibition-card h-100 shadow-sm">
+                                    <img src="{{$exhibitGroup->getIconUrl()}}"
+                                         class="card-img-top exhibition-image"
+                                         alt="{{$exhibitGroup->name}}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">#{{$exhibitGroup->number}} {{$exhibitGroup->name}}</h5>
+                                        <p class="card-text">{{$exhibitGroup->short_description}}</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <a href="{{ route('exhibit_group.show', $exhibitGroup) }}"
+                                               class="btn btn-primary btn-sm">Подробнее</a>
+                                            <a href="#museumMap"
+                                               class="text-decoration-none map-pin-icon"
+                                               data-exhibit-number="{{$exhibitGroup->number}}"
+                                               title="Показать на схеме">
+                                                Показать<i class="bi bi-geo-alt-fill text-danger fs-5"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-muted small">
+                                        Through December 2023
                                     </div>
                                 </div>
-                                <div class="card-footer text-muted small">
-                                    Through December 2023
-                                </div>
                             </div>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="text-center py-5 px-3">
+                        <div class="empty-state animate__animated animate__fadeIn">
+                            <div class="icon-wrapper mb-4">
+                                <svg class="search-empty-icon" width="80" height="80" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z"
+                                        fill="#adb5bd"/>
+                                    <path d="M10 9H9V8H10V9ZM10 10H9V11H10V10Z" fill="#adb5bd"/>
+                                </svg>
+                            </div>
+
+                            <h3 class="mb-3 text-muted">Инсталляций не найдено</h3>
+
+                            <button class="btn btn-outline-secondary btn-sm clear-search-input-btn">
+                                <i class="bi bi-arrow-counterclockwise me-2"></i>
+                                Сбросить поиск
+                            </button>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endif
             </section>
         </div>
 
@@ -109,7 +142,7 @@
                 }
 
                 .museum-map:hover {
-                    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)!important;
+                    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
                 }
 
                 #museumMap {
@@ -160,7 +193,7 @@
                     background: white;
                     padding: 20px;
                     border-radius: 8px;
-                    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
                     z-index: 99999999999;
                     width: 300px;
                 }
@@ -192,7 +225,7 @@
                     cursor: pointer;
                 }
 
-                .museum-map + .row {  /* Targets the row immediately after museum-map */
+                .museum-map + .row { /* Targets the row immediately after museum-map */
                     margin-top: 2rem;
                 }
 
@@ -244,7 +277,8 @@
                     const mapEl = document.getElementById("map-img");
                     mapEl.style.cursor = clicked ? 'zoom-in' : 'zoom-out';
 
-                    const clickedX = e.clientX - elemRect.x + window.scrollX, clickedY = e.clientY - elemRect.y + window.scrollY;
+                    const clickedX = e.clientX - elemRect.x + window.scrollX,
+                        clickedY = e.clientY - elemRect.y + window.scrollY;
                     const xs = clickedX, ys = clickedY;
 
                     clicked = !clicked;
@@ -297,7 +331,7 @@
                 }
 
                 document.querySelectorAll('.map-pin-icon').forEach(icon => {
-                    icon.addEventListener('click', function(e) {
+                    icon.addEventListener('click', function (e) {
                         e.preventDefault();
                         const exhibitNumber = this.dataset.exhibitNumber;
 
@@ -307,12 +341,38 @@
 
                         setTimeout(() => {
                             const hotspot = document.querySelector(`.hotspot[data-number="${exhibitNumber}"]`);
-                            if(hotspot) {
+                            if (hotspot) {
                                 hotspot.click();
                             }
                         }, 300);
                     });
                 });
+
+                if (<?= (int)!empty($searched) ?>) {
+                    document.getElementById('exhibits-header').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    document.getElementById('search-input').value = "<?= $searched ?>";
+                }
+
+                const PAGE_URL = "<?= route('map.index') ?>";
+                const doSearch = () => window.location.href = PAGE_URL + "?search=" + document.getElementById('search-input').value;
+
+                document.getElementById('search-input-btn').addEventListener('click', (e) => {
+                    doSearch();
+                })
+
+                document.getElementById('search-input').addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        doSearch();
+                    }
+                })
+
+                document.querySelectorAll('.clear-search-input-btn').forEach((el) => {
+                    el.addEventListener('click', (e) => {
+                        window.location.href = PAGE_URL;
+                    })
+                })
             </script>
         @endpush
     </div>
