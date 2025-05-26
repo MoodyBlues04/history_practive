@@ -18,6 +18,11 @@
                     <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a href="{{ route('main') }}">Главная</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('exhibit.index') }}">Экспонаты</a></li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('exhibit_group.show', $exhibit->exhibitGroup) }}">
+                                {{$exhibit->exhibitGroup->name}}
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active" aria-current="page">{{ $exhibit->name }}</li>
                     </ol>
                 </nav>
