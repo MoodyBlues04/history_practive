@@ -8,6 +8,7 @@ use App\Models\Museum;
 use App\Models\Photo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class OpticsMuseumSeeder extends Seeder
@@ -23,6 +24,10 @@ class OpticsMuseumSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->cleanDir('public/' . self::EXHIBIT_GROUP_PHOTOS_DIR);
+        $this->cleanDir('public/' . self::EXHIBIT_PHOTOS_DIR);
+        $this->cleanDir('public/map');
+
         /** @var Museum $museum */
         $museum = Museum::query()->where('name', self::OPTICS_MUSEUM_NAME)->first();
         if ($museum === null) {
@@ -57,59 +62,14 @@ class OpticsMuseumSeeder extends Seeder
 
     private function createExhibitGroups(Museum $museum): void
     {
-        $exhibitGroupsToSeed = [
-            [
-                'name' => 'Голограммы у входа', // todo пока unique - по ним prev и next
-                'number' => 1,
-                'map_coordinates' => [10, 30], // percentage from top & left on map
-                'short_description' => 'ряд из голограмм у входа, крутые',
-                'description' => 'ряд из голограмм у входа, крутые. А это их длинное описание',
-                'next_group_name' => 'Голограммы у входа дубликат для теста',
-                'previous_group_name' => 'Голограммы у входа дубликат для теста',
-                'photos' => [
-                    'gologramms_near_entry.jpg',
-                    'test_1.jpg',
-                ],
+        $encodedExhibits = Storage::get('default_images/exhibits.json');
+        $exhibitGroupsToSeed = json_decode($encodedExhibits, true);
 
-                'exhibits' => [
-                    [
-                        'name' => 'Голограмма у входа',
-                        'short_description' => 'голограмма у входа, крутая',
-                        'description' => 'голограмма у входа, крутая. А это ее длинное описание',
-                        'photos' => [
-                            'gologramm_near_entry_1.jpg'
-                        ]
-                    ],
-                ],
-            ],
-            [
-                'name' => 'Голограммы у входа дубликат для теста',
-                'number' => 2,
-                'map_coordinates' => [40, 50],
-                'short_description' => 'ряд из голограмм у входа, крутые',
-                'description' => 'ряд из голограмм у входа, крутые. А это их длинное описание',
-                'next_group_name' => 'Голограммы у входа',
-                'previous_group_name' => 'Голограммы у входа',
-                'photos' => [
-                    'gologramms_near_entry.jpg'
-                ],
+        $totalGroups = count($exhibitGroupsToSeed);
+        foreach ($exhibitGroupsToSeed as $idx => $exhibitGroupData) {
+            $exhibitGroupData['number'] = $idx + 1;
+            $exhibitGroupData['map_coordinates'] = [$idx / $totalGroups * 100, $idx / $totalGroups * 100]; // todo
 
-                'exhibits' => [
-                    [
-                        'name' => 'Голограмма у входа дубль',
-                        'short_description' => 'голограмма у входа, крутая',
-                        'description' => 'голограмма у входа, крутая. А это ее длинное описание',
-                        'photos' => [
-                            'gologramm_near_entry_1.jpg'
-                        ]
-                    ],
-                ],
-            ],
-        ];
-
-        $exhibitGroups = [];
-
-        foreach ($exhibitGroupsToSeed as $exhibitGroupData) {
             ExhibitGroup::query()->where('name', $exhibitGroupData['name'])->delete();
 
             $dataToCreate = collect($exhibitGroupData)->only(['name', 'map_coordinates', 'short_description', 'description', 'number'])->all();
@@ -124,19 +84,17 @@ class OpticsMuseumSeeder extends Seeder
                 $exhibit = $exhibitGroup->exhibits()->create($dataToCreate);
                 $this->makePhotos($exhibit, $exhibitData['photos'], self::EXHIBIT_PHOTOS_DIR);
             }
-
-            $exhibitGroups[] = [$exhibitGroup, $exhibitGroupData['next_group_name'], $exhibitGroupData['previous_group_name']];
         }
 
-        foreach ($exhibitGroups as $exhibitGroupData) {
-            [$exhibitGroup, $nextName, $prevName] = $exhibitGroupData;
-            if ($nextName !== null) {
-                $nextGroup = ExhibitGroup::query()->where('name', $nextName)->firstOrFail();
-                $exhibitGroup->nextGroup()->associate($nextGroup)->save();
+        $exhibitGroups = ExhibitGroup::query()->get()->all();
+        foreach ($exhibitGroups as $exhibitGroup) {
+            if ($exhibitGroup->number > 1) {
+                $prevGroup = ExhibitGroup::query()->where('number', $exhibitGroup->number - 1)->firstOrFail();
+                $exhibitGroup->previousGroup()->associate($prevGroup)->save();
             }
-            if ($prevName !== null) {
-                $previousGroup = ExhibitGroup::query()->where('name', $prevName)->firstOrFail();
-                $exhibitGroup->previousGroup()->associate($previousGroup)->save();
+            if ($exhibitGroup->number < $totalGroups) {
+                $nextGroup = ExhibitGroup::query()->where('number', $exhibitGroup->number + 1)->firstOrFail();
+                $exhibitGroup->nextGroup()->associate($nextGroup)->save();
             }
         }
     }
@@ -156,5 +114,12 @@ class OpticsMuseumSeeder extends Seeder
         $descPathFull = substr($descPath, 0 , $dotIdx) . '_' . time() . substr($descPath, $dotIdx);
         Storage::copy($srcPath, $descPathFull);
         return Photo::createFromPath($descPathFull);
+    }
+
+    private function cleanDir(string $dir): void
+    {
+        foreach (Storage::files($dir) as $file) {
+            Storage::delete($file);
+        }
     }
 }
