@@ -34,7 +34,9 @@
                             <div class="carousel-item {{ $idx === 0 ? 'active' : '' }}">
                                 <img src="{{ $photo->getPublicUrl() }}"
                                      class="d-block w-100 exhibit-gallery-image"
-                                     alt="{{ $exhibitGroup->name }} - Image {{ $idx + 1 }}">
+                                     alt="{{ $exhibitGroup->name }} - Image {{ $idx + 1 }}"
+                                     style="max-height: 800px"
+                                >
                             </div>
                         @endforeach
                     </div>
@@ -65,27 +67,29 @@
         </div>
 
         <section id="exhibitions" class="mb-5">
-            <h2 class="text-center mb-5">Экспонаты</h2>
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                <!-- Card 1 -->
-                <?php /** @var \App\Models\Exhibit $exhibit */ ?>
-                @foreach($exhibitGroup->exhibits as $exhibit)
-                    <div class="col">
-                        <div class="card exhibition-card h-100">
-                            <img src="{{$exhibit->getIconUrl()}}" class="card-img-top exhibition-image"
-                                 alt="{{$exhibit->name}}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{$exhibit->name}}</h5>
-                                <p class="card-text">{{$exhibit->short_description}}</p>
-                                <a href="{{ route('exhibit.show', $exhibit) }}" class="btn btn-primary">Подробнее</a>
-                            </div>
-                            <div class="card-footer text-muted">
-                                Through December 2023
+            @if(!$exhibitGroup->exhibits->isEmpty()):
+                <h2 class="text-center mb-5">Экспонаты</h2>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Card 1 -->
+                    <?php /** @var \App\Models\Exhibit $exhibit */ ?>
+                    @foreach($exhibitGroup->exhibits as $exhibit)
+                        <div class="col">
+                            <div class="card exhibition-card h-100">
+                                <img src="{{$exhibit->getIconUrl()}}" class="card-img-top exhibition-image"
+                                     alt="{{$exhibit->name}}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{$exhibit->name}}</h5>
+                                    <p class="card-text">{{$exhibit->short_description}}</p>
+                                    <a href="{{ route('exhibit.show', $exhibit) }}" class="btn btn-primary">Подробнее</a>
+                                </div>
+                                <div class="card-footer text-muted">
+                                    Through December 2023
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
+                    @endforeach
+                </div>
+            @endif
         </section>
 
         <!-- Navigation -->

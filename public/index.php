@@ -48,13 +48,16 @@ $app = require_once __DIR__ . '/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
-$consoleKernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
-try {
-    $consoleKernel->call('migrate', ['--force' => true]);
-    $consoleKernel->call('migrate:fresh', ['--seed' => true, '--force' => true]);
-    $consoleKernel->call('storage:link');
-} catch (Exception $e) {
-    echo $e->getMessage(); throw $e;
+const TMP_FILE = 'tmp';
+if (!file_exists(TMP_FILE)) {
+    $consoleKernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+    try {
+        $consoleKernel->call('storage:link');
+        $consoleKernel->call('migrate:fresh', ['--seed' => true, '--force' => true]);
+//        touch(TMP_FILE);
+    } catch (Exception $e) {
+        echo $e->getMessage(); throw $e;
+    }
 }
 
 
