@@ -16,7 +16,7 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+if (file_exists($maintenance = __DIR__ . '/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
 
@@ -31,7 +31,7 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 |
 */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -44,9 +44,19 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = require_once __DIR__.'/../bootstrap/app.php';
+$app = require_once __DIR__ . '/../bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
+
+$consoleKernel = $app->make(\Illuminate\Contracts\Console\Kernel::class);
+try {
+    $consoleKernel->call('migrate', ['--force' => true]);
+    $consoleKernel->call('migrate:fresh', ['--seed' => true, '--force' => true]);
+    $consoleKernel->call('storage:link');
+} catch (Exception $e) {
+    echo $e->getMessage(); throw $e;
+}
+
 
 $response = $kernel->handle(
     $request = Request::capture()
