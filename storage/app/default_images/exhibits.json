@@ -360,5 +360,24 @@
                 ]
             }
         ]
+    },
+    {
+        "name": "История искусственных источников света",
+        "short_description": "выставка искусственных источников света от огня до лазера",
+        "description": "Это выставка, в которой представлена эволюция искусственных источников света, начиная от огня и первых искуственных источников и заканчивая источниками, изобретёнными в середине XX века.",
+        "photos": [
+            "light-source1.jpg",
+            "light-source2.jpg",
+            "light-source3.jpg",
+            "light-source4.jpg",
+            "light-source5.jpg",
+            "light-source6.jpg",
+            "light-source7.jpg",
+            "light-source8.jpg",
+            "light-source9.jpg"
+        ],
+
+        "exhibits": [
+        ]
     }
 ]
