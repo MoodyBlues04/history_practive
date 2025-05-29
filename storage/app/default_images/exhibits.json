@@ -5,16 +5,66 @@
         "description": "В белых витринах вы можете увидеть драгоценности из Музея Фаберже и Алмазного фонда России. Однако, это не настоящие предметы. Это \"оптоклоны\" — высококачественные цветные голограммы, созданные Университетом ИТМО в сотрудничестве с Греческим институтом голографии.",
         "photos": [
             "optoclone1.jpg",
-            "optoclone2.jpg",
-            "optoclone3.jpg",
-            "optoclone4.jpg",
-            "optoclone5.jpg",
-            "optoclone6.jpg",
-            "optoclone7.jpg",
-            "optoclone8.jpg"
+            "optoclone2.jpg"
         ],
     
         "exhibits": [
+            {
+                "name": "Голограмма \"Погремушка-свисток\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "optoclone4.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Кулон \"Рубин Цезаря\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "optoclone5.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Пасхальное яйцо \"Пятнадцатилетие царствования\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "optoclone3.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Колокольчик настольный\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "optoclone9.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Знак Ордена Александра Невского\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "optoclone6.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Бант-склаваж\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "optoclone7.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Пасхальное яйцо герцогини Мальборо\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "optoclone8.jpg"
+                ]
+            }
         ]
     },
     {
@@ -186,13 +236,34 @@
         "short_description": "",
         "description": "При проектировке оборудования для космических исследований значительным фактором является космическое излучение. Поэтому проводились исследования его воздействия на оптические свойства стёкол и разрабатывались сорта, пригодные для космоса.",
         "photos": [
-            "space-glass1.jpg",
-            "space-glass2.jpg",
-            "space-glass3.jpg",
-            "space-glass4.jpg"
+            "space-glass1.jpg"
         ],
 
         "exhibits": [
+            {
+                "name": "Иллюминатор космического аппарата типа И1000",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "space-glass2.jpg"
+                ]
+            },
+            {
+                "name": "Кассета-контейнер с образцами стёкол",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "space-glass3.jpg"
+                ]
+            },
+            {
+                "name": "Оптические зеркала",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "space-glass4.jpg"
+                ]
+            }
         ]
     },
     {
@@ -200,12 +271,26 @@
         "short_description": "игрушки для демонстрации инерции зрения",
         "description": "Наш мозг может воспринимать быстро сменяющиеся последовательные изображения как плавно движущееся или изменяющееся изображение. На этом основаны анимация и кинематограф. Данные экспонаты — устройства для демонстрации этого эффекта, которые изобрели до рождения кинематографа.",
         "photos": [
-            "animation1.jpg",
-            "animation2.jpg",
-            "animation3.jpg"
+            "animation1.jpg"
         ],
 
         "exhibits": [
+            {
+                "name": "Фенакистоскоп",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "animation3.jpg"
+                ]
+            },
+            {
+                "name": "Зоотроп",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "animation2.jpg"
+                ]
+            }
         ]
     },
     {
@@ -213,15 +298,50 @@
         "short_description": "устройства для направленной передачи света",
         "description": "Световоды — устройства для направленной передачи света. Обычно в их работе используется явление полного внутреннего отражения, из-за которого свет не проходит сквозь стенки световода, а полностью отражается от него. Классический и наиболее распространённый пример — оптоволокно, использующееся повсеместно для быстрой передачи информации. Другой, не менее интересной областью применения световодов является медицина. В гибкой ФГДС-трубке, которая позволяет визуально осматривать пищеварительный тракт до двенадцатиперстной кишки, изображение передаётся по большому пучку оптоволокна.",
         "photos": [
-            "waveguide1.jpg",
-            "waveguide2.jpg",
-            "waveguide3.jpg",
-            "waveguide4.jpg",
-            "waveguide5.jpg",
-            "waveguide6.jpg"
+            "waveguide1.jpg"
         ],
 
         "exhibits": [
+            {
+                "name": "Селенит",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "waveguide6.jpg"
+                ]
+            },
+            {
+                "name": "Одножильный световод",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "waveguide2.jpg"
+                ]
+            },
+            {
+                "name": "Пучок одножильных световодов",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "waveguide3.jpg"
+                ]
+            },
+            {
+                "name": "Многожильный световод",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "waveguide4.jpg"
+                ]
+            },
+            {
+                "name": "Гибкая ФГДС-трубка",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "waveguide5.jpg"
+                ]
+            }
         ]
     },
     {
@@ -229,15 +349,44 @@
         "short_description": "",
         "description": "Здесь представлены различные голограммы, в том числе голографические портреты и голограммы, демонстрирующие сохранение оптических свойств объектов",
         "photos": [
-            "hologram1.jpg",
-            "hologram2.jpg",
             "hologram3.jpg",
-            "hologram4.jpg",
-            "hologram5.jpg",
-            "hologram6.jpg"
+            "hologram4.jpg"
         ],
 
         "exhibits": [
+            {
+                "name": "Голограмма \"Мальчик с пузырём\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "hologram1.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Битлз\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "hologram2.jpg"
+                ]
+            },
+            {
+                "name": "Голографический портрет Ю.Н. Денисюка",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "hologram5.jpg"
+                ]
+            },
+            {
+                "name": "Голограмма \"Девушка с линзой\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "hologram6.jpg",
+                    "hologram7.jpg"
+                ]
+            }
         ]
     },
     {
