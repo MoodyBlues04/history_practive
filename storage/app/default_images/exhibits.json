@@ -223,5 +223,21 @@
 
         "exhibits": [
         ]
+    },
+    {
+        "name": "Коллекция голограмм",
+        "short_description": "",
+        "description": "Здесь представлены различные голограммы, в том числе голографические портреты и голограммы, демонстрирующие сохранение оптических свойств объектов",
+        "photos": [
+            "hologram1.jpg",
+            "hologram2.jpg",
+            "hologram3.jpg",
+            "hologram4.jpg",
+            "hologram5.jpg",
+            "hologram6.jpg"
+        ],
+
+        "exhibits": [
+        ]
     }
 ]
