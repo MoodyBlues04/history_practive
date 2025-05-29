@@ -308,5 +308,57 @@
 
         "exhibits": [
         ]
+    },
+    {
+        "name": "Развитие фотографии",
+        "short_description": "большая коллекция фотоаппаратов",
+        "description": "Здесь представлена большая коллекция фотоаппаратов и фотографий, датируемых от второй половины XIX века до середины XX века, иллюстрирующая то, как развивалась фотография.",
+        "photos": [
+            "photography1.jpg",
+            "photography2.jpg",
+            "photographyA.jpg",
+            "photographyB.jpg",
+            "photographyC.jpg",
+            "photographyD.jpg",
+            "photographyE.jpg"
+        ],
+
+        "exhibits": [
+            {
+                "name": "Складная деревянная камера с объективом",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "photography9.jpg"
+                ]
+            },
+            {
+                "name": "Фотографии конца XIX века",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "photography4.jpg",
+                    "photography3.jpg"
+                ]
+            },
+            {
+                "name": "Фотографии и фотоаппараты начала XX века",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "photography6.jpg",
+                    "photography5.jpg"
+                ]
+            },
+            {
+                "name": "Советские фотоаппараты середины/конца XX века",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "photography8.jpg",
+                    "photography7.jpg"
+                ]
+            }
+        ]
     }
 ]
