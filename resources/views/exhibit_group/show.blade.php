@@ -58,10 +58,12 @@
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto">
                 <div class="exhibit-description">
-                    <h2 class="mb-4">Об инсталляции</h2>
-                    @foreach(explode("\n", $exhibitGroup->description) as $paragraph)
-                        <p class="lead">{{ $paragraph }}</p>
-                    @endforeach
+                    @if(!empty($exhibitGroup->description))
+                        <h2 class="mb-4">Об инсталляции</h2>
+                        @foreach(explode("\n", $exhibitGroup->description) as $paragraph)
+                            <p class="lead">{{ $paragraph }}</p>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
