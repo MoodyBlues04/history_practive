@@ -69,7 +69,7 @@
         </div>
 
         <section id="exhibitions" class="mb-5">
-            @if(!$exhibitGroup->exhibits->isEmpty()):
+            @if(!$exhibitGroup->exhibits->isEmpty())
                 <h2 class="text-center mb-5">Экспонаты</h2>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <!-- Card 1 -->
