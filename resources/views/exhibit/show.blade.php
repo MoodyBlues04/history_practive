@@ -39,7 +39,9 @@
                             <div class="carousel-item {{ $idx === 0 ? 'active' : '' }}">
                                 <img src="{{ $photo->getPublicUrl() }}"
                                      class="d-block w-100 exhibit-gallery-image"
-                                     alt="{{ $exhibit->name }} - Image {{ $idx + 1 }}">
+                                     alt="{{ $exhibit->name }} - Image {{ $idx + 1 }}"
+                                     style="max-height: 800px; object-fit: contain"
+                                >
                             </div>
                         @endforeach
                     </div>
@@ -61,9 +63,9 @@
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto">
                 <div class="exhibit-description">
-                    @if(!empty($exhibit->description))
+                    @if(!empty($exhibit->getDescription()))
                         <h2 class="mb-4">Об экспонате</h2>
-                        @foreach(explode("\n", $exhibit->description) as $paragraph)
+                        @foreach(explode("\n", $exhibit->getDescription()) as $paragraph)
                             <p class="lead">{{ $paragraph }}</p>
                         @endforeach
                     @endif
@@ -72,3 +74,12 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <style>
+        .carousel-control-next,
+        .carousel-control-prev /*, .carousel-indicators */ {
+            filter: invert(100%);
+        }
+    </style>
+@endpush

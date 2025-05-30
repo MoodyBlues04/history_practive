@@ -321,13 +321,16 @@
                     const parentStyles = window.getComputedStyle(container);
 
                     const parentMarginRight = parentRect.right + parseFloat(parentStyles.marginRight);
+                    const parentMarginBottom = parentRect.bottom + parseFloat(parentStyles.marginBottom);
 
-                    if (popupRect.right <= parentMarginRight) {
-                        return;
+                    if (popupRect.right >= parentMarginRight) {
+                        const widthPercentage = (popupRect.width / parentRect.width) * 100;
+                        popup.style.left = `${parseInt(popup.style.left) - widthPercentage}%`
                     }
-
-                    const widthPercentage = (popupRect.width / parentRect.width) * 100;
-                    popup.style.left = `${parseInt(popup.style.left) - widthPercentage}%`
+                    if (popupRect.bottom >= parentMarginBottom) {
+                        const heightPercentage = (popupRect.height / parentRect.height) * 100;
+                        popup.style.top = `${parseInt(popup.style.top) - heightPercentage}%`
+                    }
                 }
 
                 document.querySelectorAll('.map-pin-icon').forEach(icon => {

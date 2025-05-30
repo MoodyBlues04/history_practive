@@ -40,4 +40,9 @@ class Exhibit extends Model
     {
         return $this->belongsToMany(Photo::class, 'exhibit_photo_pivot');
     }
+
+    public function getDescription(): string
+    {
+        return !empty($this->description) ? $this->description : $this->short_description;
+    }
 }

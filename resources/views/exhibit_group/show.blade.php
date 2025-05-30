@@ -35,7 +35,7 @@
                                 <img src="{{ $photo->getPublicUrl() }}"
                                      class="d-block w-100 exhibit-gallery-image"
                                      alt="{{ $exhibitGroup->name }} - Image {{ $idx + 1 }}"
-                                     style="max-height: 800px"
+                                     style="max-height: 800px; object-fit: contain"
                                 >
                             </div>
                         @endforeach
@@ -58,9 +58,9 @@
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto">
                 <div class="exhibit-description">
-                    @if(!empty($exhibitGroup->description))
+                    @if(!empty($exhibitGroup->getDescription()))
                         <h2 class="mb-4">Об инсталляции</h2>
-                        @foreach(explode("\n", $exhibitGroup->description) as $paragraph)
+                        @foreach(explode("\n", $exhibitGroup->getDescription()) as $paragraph)
                             <p class="lead">{{ $paragraph }}</p>
                         @endforeach
                     @endif
@@ -113,3 +113,12 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <style>
+        .carousel-control-next,
+        .carousel-control-prev /*, .carousel-indicators */ {
+            filter: invert(100%);
+        }
+    </style>
+@endpush

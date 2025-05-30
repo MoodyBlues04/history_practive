@@ -80,4 +80,9 @@ class ExhibitGroup extends Model
     {
         return $this->map_coordinates[1];
     }
+
+    public function getDescription(): string
+    {
+        return !empty($this->description) ? $this->description : $this->short_description;
+    }
 }

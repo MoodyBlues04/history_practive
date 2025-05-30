@@ -68,7 +68,9 @@ class OpticsMuseumSeeder extends Seeder
         $totalGroups = count($exhibitGroupsToSeed);
         foreach ($exhibitGroupsToSeed as $idx => $exhibitGroupData) {
             $exhibitGroupData['number'] = $idx + 1;
-            $exhibitGroupData['map_coordinates'] = [$idx / $totalGroups * 100, $idx / $totalGroups * 100]; // todo
+            if (!isset($exhibitGroupData['map_coordinates'])) { // todo remove if
+                $exhibitGroupData['map_coordinates'] = [$idx / $totalGroups * 100, $idx / $totalGroups * 100];
+            }
 
             ExhibitGroup::query()->where('name', $exhibitGroupData['name'])->delete();
 
