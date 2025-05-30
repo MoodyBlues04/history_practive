@@ -54,7 +54,7 @@ if (!file_exists(TMP_FILE)) {
     try {
         $consoleKernel->call('storage:link');
         $consoleKernel->call('migrate:fresh', ['--seed' => true, '--force' => true]);
-//        touch(TMP_FILE);
+        touch(TMP_FILE);
     } catch (Exception $e) {
         echo $e->getMessage(); throw $e;
     }
