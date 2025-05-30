@@ -167,6 +167,7 @@
             "light-source8.jpg",
             "light-source9.jpg"
         ],
+        "map_coordinates": [60, 50],
 
         "exhibits": [
         ]
@@ -179,6 +180,7 @@
             "hologram3.jpg",
             "hologram4.jpg"
         ],
+        "map_coordinates": [93, 50],
 
         "exhibits": [
             {
@@ -229,6 +231,7 @@
             "photographyD.jpg",
             "photographyE.jpg"
         ],
+        "map_coordinates": [60, 36],
 
         "exhibits": [
             {
@@ -284,6 +287,7 @@
         "photos": [
             "opt-components1.jpg"
         ],
+        "map_coordinates": [93, 21],
 
         "exhibits": [
             {
@@ -335,6 +339,8 @@
         "photos": [
             "microscope1.jpg"
         ],
+        "map_coordinates": [93, 33],
+
 
         "exhibits": [
         ]
@@ -346,6 +352,7 @@
         "photos": [
             "catalogue1.jpg"
         ],
+        "map_coordinates": [78, 9],
 
         "exhibits": [
         ]
@@ -357,6 +364,7 @@
         "photos": [
             "glass-history.jpg"
         ],
+        "map_coordinates": [64.5, 17],
 
         "exhibits": [
             {
@@ -425,6 +433,7 @@
         "photos": [
             "waveguide1.jpg"
         ],
+        "map_coordinates": [64.5, 25],
 
         "exhibits": [
             {
@@ -477,6 +486,7 @@
             "hydrogel1.jpg",
             "hydrogel2.jpg"
         ],
+        "map_coordinates": [93, 12],
 
         "exhibits": [
         ]
@@ -488,6 +498,7 @@
         "photos": [
             "animation1.jpg"
         ],
+        "map_coordinates": [36, 16],
 
         "exhibits": [
             {
@@ -515,17 +526,7 @@
         "photos": [
             "mirror-writing1.jpg"
         ],
-
-        "exhibits": [
-        ]
-    },
-    {
-        "name": "Зеркальный лабиринт",
-        "short_description": "лабиринт с зеркальными стенами",
-        "description": "Зеркальный лабиринт — это пространство, где свет до бесконечности отражается от множества зеркал, наполняющих зал. Попробуйте зайти в комнату и самостоятельно найти выход.",
-        "photos": [
-            "mirror-room1.jpg"
-        ],
+        "map_coordinates": [25, 33],
 
         "exhibits": [
         ]
@@ -537,6 +538,7 @@
         "photos": [
             "thermal-camera1.jpg"
         ],
+        "map_coordinates": [25, 52],
 
         "exhibits": [
         ]
@@ -548,12 +550,25 @@
         "photos": [
             "plasma-ball1.jpg"
         ],
+        "map_coordinates": [43, 32],
 
         "exhibits": [
         ]
     },
     {
-        "name": "Ультрафиолет",
+        "name": "Зеркальный лабиринт",
+        "short_description": "лабиринт с зеркальными стенами",
+        "description": "Зеркальный лабиринт — это пространство, где свет до бесконечности отражается от множества зеркал, наполняющих зал. Попробуйте зайти в комнату и самостоятельно найти выход.",
+        "photos": [
+            "mirror-room1.jpg"
+        ],
+        "map_coordinates": [10, 66],
+
+        "exhibits": [
+        ]
+    },
+    {
+        "name": "УФ-флуоресценция",
         "short_description": "различные предметы, флуоресцирующие под воздействием ультрафиолета",
         "description": "Ультрафиолет — это свет с длиной волны в диапазоне 10 – 400 нм, что короче, чем у видимого света. Флуоресценция — это способность вещества светиться под воздействием электромагнитной радиации, при этом излучаемый свет имеет большую длину волны, чем поглощаемый. Экспонаты этого зала объединены одним свойством — они флуоресцируют под воздействием ультрафиолета, излучая свет в видимом диапазоне. Флуоресцируют минералы, например, янтарь, флуорит и рубин; флуоресцирует хинин, дающий характерный вкус тонику; флуоресцирует скорпионы и даже наши зубы.",
         "photos": [
@@ -561,6 +576,7 @@
             "uv2.jpg",
             "uv3.jpg"
         ],
+        "map_coordinates": [46, 64],
 
         "exhibits": [
         ]
@@ -573,6 +589,7 @@
             "light-hall1.jpg",
             "light-hall2.jpg"
         ],
+        "map_coordinates": [51.555, 84],
 
         "exhibits": [
         ]
