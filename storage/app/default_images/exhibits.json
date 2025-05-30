@@ -343,6 +343,30 @@
 
 
         "exhibits": [
+            {
+                "name": "Простой микроскоп Левенгука",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "microscope2.jpg"
+                ]
+            },
+            {
+                "name": "Микроскоп \"барабанного типа\"",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "microscope3.jpg"
+                ]
+            },
+            {
+                "name": "Монокулярный микроскоп фирмы Константа Верика",
+                "short_description": "",
+                "description": "",
+                "photos": [
+                    "microscope4.jpg"
+                ]
+            }
         ]
     },
     {
