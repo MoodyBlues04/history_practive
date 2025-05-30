@@ -30,7 +30,7 @@
                          style="cursor: zoom-in">
 
                     <?php /** @var \App\Models\ExhibitGroup $exhibitGroup */ ?>
-                    @foreach($exhibitGroups as $exhibitGroup)
+                    @foreach($museum->exhibitGroups as $exhibitGroup)
                         <button class="hotspot"
                                 style="top: {{$exhibitGroup->getMapTop()}}%; left: {{$exhibitGroup->getMapLeft()}}%;"
                                 data-number="{{$exhibitGroup->number}}"

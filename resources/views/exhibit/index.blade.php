@@ -13,10 +13,11 @@
             <h2 class="text-center mb-5">Экспонаты</h2>
             <?php /** @var \App\Models\ExhibitGroup $exhibitGroup */ ?>
             @foreach($museum->exhibitGroups as $exhibitGroup)
-                <h4 class="">#{{$exhibitGroup->number}} {{$exhibitGroup->name}}</h4>
+                <a href="{{ route('exhibit_group.show', $exhibitGroup) }}" style="text-decoration: none">
+                    <h4 class="">#{{$exhibitGroup->number}} {{$exhibitGroup->name}}</h4>
+                </a>
                 <p>{{$exhibitGroup->short_description}}</p>
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" style="margin-bottom: 40px">
-                    {{--                    todo just make components for this tables--}}
                         <?php /** @var \App\Models\Exhibit $exhibit */ ?>
                     @foreach($exhibitGroup->exhibits as $exhibit)
                         <div class="col">
@@ -28,9 +29,6 @@
                                     <p class="card-text">{{$exhibit->short_description}}</p>
                                     <a href="{{ route('exhibit.show', $exhibit) }}"
                                        class="btn btn-primary">Подробнее</a>
-                                </div>
-                                <div class="card-footer text-muted">
-                                    Through December 2023
                                 </div>
                             </div>
                         </div>
